@@ -1,0 +1,152 @@
+.resultPage {
+  min-height: 100vh;
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.resultBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.resultContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 24px;
+  gap: 16px;
+}
+
+.resultCard,
+.actionsCard {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+
+.actionsCard {
+  padding: 20px 32px;
+}
+
+.resultFrame {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 1px solid var(--accent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.resultCard {
+  text-align: center;
+}
+
+.resultLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-dim);
+  margin-bottom: 20px;
+}
+
+.resultScore {
+  line-height: 1;
+}
+
+.resultScoreNum {
+  font-size: clamp(80px, 18vw, 140px);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+
+.resultScoreTotal {
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 400;
+  color: var(--fg-dim);
+}
+
+.resultPct {
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 700;
+  color: var(--fg-dim);
+  margin-top: 8px;
+}
+
+.resultRatio {
+  font-size: 13px;
+  color: var(--fg-dim);
+  margin-top: 12px;
+  letter-spacing: 0.04em;
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.resultBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.25s;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: var(--bg-cell);
+  color: var(--fg);
+  flex: 1;
+}
+
+.resultBtn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.resultBtnPrimary {
+  flex: 1.4;
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  padding: 16px 24px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.resultBtnPrimary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  color: white;
+  border-color: var(--accent);
+}
+
+.resultBtnSecondary {
+  background: var(--bg-cell);
+  color: var(--fg);
+}
+
+.resultBtnSecondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}

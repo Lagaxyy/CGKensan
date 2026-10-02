@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+:root {
+  --bg: #09090a;
+  --bg-cell: #111114;
+  --fg: #eeede8;
+  --fg-dim: #5c5a56;
+  --accent: #e85d75;
+  --accent-soft: #e85d7515;
+  --border: #1c1c1f;
+  --success: #4ade80;
+  --error: #f87171;
+  --cta-secondary: #1f1f24;
+}
+
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+@keyframes logoBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive utilities */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* Reset pour les liens */
+a {
+  color: inherit;
+  text-decoration: none;
+}

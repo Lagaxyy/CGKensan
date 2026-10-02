@@ -1,0 +1,21 @@
+.homeDesktop {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.homeGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1px;
+  height: 100%;
+  width: 100%;
+  background: var(--border);
+}
+
+.homeMobile {
+  min-height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}

@@ -1,0 +1,169 @@
+/* Shared reusable components across the app */
+
+/* ── Page shells ─────────────────────────────────────────────────── */
+
+.pageWrapper {
+  min-height: 100vh;
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.neuralBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.centerMessage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 18px;
+  color: var(--fg-dim);
+}
+
+/* ── Brutalist cards ─────────────────────────────────────────────── */
+
+.formCard {
+  position: relative;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+
+.cardFrame {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 1px solid var(--accent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.25s;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: var(--bg-cell);
+  color: var(--fg);
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btnPrimary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  color: white;
+  border-color: var(--accent);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.3;
+  background: var(--bg-cell);
+  color: var(--fg-dim);
+  border-color: var(--border);
+  cursor: not-allowed;
+  filter: none;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #d14d65;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--fg);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Form elements ───────────────────────────────────────────────── */
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--fg-dim);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-cell);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-size: 14px;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  transition: all 0.2s;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg);
+}
+
+.formGroup input::placeholder {
+  color: var(--fg-dim);
+  opacity: 0.5;
+}
+
+.errorBox {
+  padding: 12px;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: #f87171;
+  font-size: 12px;
+  margin-bottom: 20px;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+}

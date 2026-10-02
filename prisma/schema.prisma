@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String             @id @default(cuid())
+  pseudo        String             @unique
+  password      String
+  image         String?
+  createdAt     DateTime           @default(now()) @map("created_at")
+  role          String             @default("user")
+
+  quizResults   QuizResult[]
+  notifications UserNotification[]
+
+  @@map("users")
+}
+
+model QuizResult {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  slug      String
+  score     Int
+  maxScore  Int      @map("max_score")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  answers QuizAnswer[]
+
+  @@map("quiz_results")
+}
+
+model QuizAnswer {
+  id              String    @id @default(cuid())
+  quizResultId    String    @map("quiz_result_id")
+  questionId      String    @map("question_id")
+  questionType    String    @map("question_type")
+  earnedPoints    Int       @map("earned_points")
+  maxPoints       Int       @map("max_points")
+  selectedOptions String[]  @map("selected_options")
+  openAnswer      String?   @map("open_answer")
+
+  quizResult QuizResult @relation(fields: [quizResultId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_answers")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String?
+  type      String   @default("info")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  recipients UserNotification[]
+
+  @@map("notifications")
+}
+
+model UserNotification {
+  id             String   @id @default(cuid())
+  userId         String   @map("user_id")
+  notificationId String   @map("notification_id")
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, notificationId])
+  @@index([userId, read])
+  @@map("user_notifications")
+}

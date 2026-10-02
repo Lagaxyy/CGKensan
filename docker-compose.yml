@@ -1,0 +1,101 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cgkensan-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - AUTH_SECRET=${NEXTAUTH_SECRET}
+      - AUTH_URL=${AUTH_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID:-}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - AUTH_TRUST_HOST=${AUTH_TRUST_HOST}
+
+      - REDIS_URL=redis://redis:6379
+      - NEXT_PUBLIC_SOCKET_URL=https://cgkensan.dbwe.tech
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - cgkensan
+
+  db:
+    image: postgres:16-alpine
+    container_name: cgkensan-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cgkensan -d cgkensan"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cgkensan
+
+  redis:
+    image: valkey/valkey:7-alpine
+    container_name: cgkensan-redis
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    networks:
+      - cgkensan
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: cgkensan-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - cgkensan
+
+  socketio:
+    build: .
+    container_name: cgkensan-socketio
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - SOCKET_PORT=3001
+      - REDIS_URL=redis://redis:6379
+      - NEXT_PUBLIC_APP_URL=https://cgkensan.dbwe.tech
+      - AUTH_SECRET=${NEXTAUTH_SECRET}
+    networks:
+      - cgkensan
+    depends_on:
+      - redis
+    command: npm run socket:start
+
+volumes:
+  pgdata:
+  redisdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  cgkensan:
+    driver: bridge
