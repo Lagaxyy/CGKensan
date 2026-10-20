@@ -4,7 +4,7 @@
 
 ## Description
 
-Plateforme visant à aider l'apprentissage via des quiz avec QCM et questions ouvertes (corrigées par IA selon critères) orientée vers la progression sur le long terme.
+Plateforme visant à aider l'apprentissage via des quiz avec QCM et questions ouvertes (corrigées par IA selon critères) et des flashcards recto-verso, orientée vers la progression sur le long terme.
 
 ## Liens
 
@@ -31,9 +31,12 @@ Source des quiz: [https://dbwe.tech](https://dbwe.tech)
 ```
 cgkensan/
 ├── docs/
-│   └── quizzes/
-│       ├── public/        # Fichiers quiz exemples
-│       └── private/       # Fichiers quiz privés
+│   ├── quizzes/
+│   │   ├── public/        # Fichiers quiz exemples
+│   │   └── private/       # Fichiers quiz privés
+│   └── flashcards/
+│       ├── public/        # Decks de flashcards exemples
+│       └── private/       # Decks de flashcards privés
 ├── prisma/
 │   └── schema.prisma      # Schéma de la base de données
 ├── scripts/               # Scripts de test
@@ -96,6 +99,35 @@ npm run dev
 Aller sur **[http://localhost:3000](http://localhost:3000)** et se connecter avec le compte admin créé avec la seed.
 
 Les notifications en temps réel ont besoin d'une instance Redis et du serveur Socket.IO (`npm run socket:dev`). L'application peut marcher sans grâce à un polling.
+
+## Contenu pédagogique
+
+Les quiz sont lus depuis `docs/quizzes/**/*.quiz.md` et les flashcards depuis `docs/flashcards/**/*.flashcard.md`. Les deux dossiers sont montés automatiquement par le catalogue.
+
+Exemple de deck de flashcards:
+
+```md
+---
+title: Bases du Web
+wiki_ref: web/bases
+tags: [web, http, dns]
+difficulty: easy
+created: 2026-10-20
+---
+
+# Cartes
+
+## Que signifie HTTP ?
+> HyperText Transfer Protocol.
+
+## À quoi sert le DNS ?
+### Verso
+> Il traduit un nom de domaine en adresse IP.
+```
+
+Le recto correspond au titre `##`. Le verso peut être introduit par `>`, par un titre `### Verso`, ou simplement suivre le recto.
+
+A brancher par la suite sur la base de données interne/externe
 
 ## Contribution
 

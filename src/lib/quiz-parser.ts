@@ -186,11 +186,19 @@ export function parseQuizContent(content: string, slug: string): Quiz {
 
   return {
     slug,
-    title: meta.title || slug,
-    wikiRef: meta.wiki_ref || "",
-    tags: meta.tags || [],
-    difficulty: meta.difficulty || "medium",
-    created: meta.created || new Date().toISOString().split("T")[0],
+    title: typeof meta.title === "string" ? meta.title : slug,
+    wikiRef: typeof meta.wiki_ref === "string" ? meta.wiki_ref : "",
+    tags: Array.isArray(meta.tags)
+      ? meta.tags
+      : typeof meta.tags === "string" && meta.tags
+        ? [meta.tags]
+        : [],
+    difficulty:
+      typeof meta.difficulty === "string" ? meta.difficulty : "medium",
+    created:
+      typeof meta.created === "string"
+        ? meta.created
+        : new Date().toISOString().split("T")[0],
     questions,
   };
 }

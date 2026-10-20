@@ -26,10 +26,10 @@ export default function HomePage() {
           />
         </GridCell>
 
-        <GridCell column="4 / span 3" row="1" href="#">
+        <GridCell column="4 / span 3" row="1" href="/flashcards">
           <CellContent
-            glyph="???"
-            label={<TextScramble active>???</TextScramble>}
+            glyph="FC"
+            label={<TextScramble active>Flashcards recto-verso pour réviser activement mes notes de cours</TextScramble>}
           />
         </GridCell>
 
@@ -139,10 +139,12 @@ export default function HomePage() {
 
       {/* Section 3: Flash */}
       <MobileSection>
-        <CellContent
-          glyph="???"
-          label={<TextScramble active>???</TextScramble>}
-        />
+        <Link href="/flashcards" style={{ width: '100%' }}>
+          <CellContent
+            glyph="FC"
+            label={<TextScramble active>Flashcards recto-verso pour réviser activement mes notes de cours</TextScramble>}
+          />
+        </Link>
       </MobileSection>
 
       {/* Section 4: Competition */}
